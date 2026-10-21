@@ -75,6 +75,9 @@ nav a:hover::after{width:100%}
 .tarja small{display:block;font-size:12px;letter-spacing:.25em;text-transform:uppercase;color:var(--mut);margin-bottom:14px}
 .tarja .big{font-size:clamp(38px,5vw,76px)}
 .tarja .big em{font-style:normal;color:var(--acc)}
+.me{display:flex;align-items:center;gap:22px}
+.avatar{position:relative;flex:none;width:clamp(84px,9vw,120px);aspect-ratio:1;border-radius:50%;padding:4px;background:conic-gradient(from 0deg,var(--acc),#8f0000,#ff7a66,var(--acc));animation:rot 6s linear infinite;box-shadow:0 0 40px rgba(255,43,43,.45)}
+.avatar img{width:100%;height:100%;object-fit:cover;border-radius:50%;border:3px solid #111;display:block;animation:rot 6s linear infinite reverse}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 .chips span{padding:9px 16px;border:1px solid #3a3a3a;border-radius:99px;font-size:14px;transition:.3s}
 .chips span:hover{background:var(--acc);color:#000;border-color:var(--acc);transform:translateY(-4px) rotate(-3deg)}
@@ -210,7 +213,7 @@ footer{display:flex;justify-content:space-between;padding:60px 4vw 30px;color:va
 
 <section class="about" id="sobre">
   <div class="tarja rv">
-    <div><small>Nome</small><div class="big" id="nome">Seu <em>Nome</em></div></div>
+    <div><small>Nome</small><div class="me"><div class="avatar" id="foto" hidden><img alt=""></div><div class="big" id="nome">Seu <em>Nome</em></div></div></div>
     <div><small>Idade</small><div class="big"><em id="age">00</em> anos</div></div>
     <div><small>Tipos de trabalho</small>
       <div class="stat"><div><b id="sv" data-n="120">0</b><span>Vídeos</span></div><div><b id="sc" data-n="50">0</b><span>Clientes</span></div></div>
@@ -258,6 +261,7 @@ if(CFG.nome){const [a,...b]=CFG.nome.trim().split(' ');
   $('#logo').innerHTML=esc(CFG.nome.toUpperCase().replace(/ /g,'.')).replace(/\./g,'<span style="color:var(--acc)">.</span>');
   $('#nome').innerHTML=esc(a)+(b.length?' <em>'+esc(b.join(' '))+'</em>':'');
   $('#rodape').textContent='© 2026 · '+CFG.nome}
+if(CFG.foto){const f=$('#foto'),im=f.querySelector('img');im.src=CFG.foto;im.alt=CFG.nome||'';f.hidden=false}
 if(CFG.heroLinhas)$('#h1').innerHTML=CFG.heroLinhas.map(l=>`<span class="line"><span>${esc(l)}</span></span>`).join('');
 if(CFG.heroTexto)$('#heroP').textContent=CFG.heroTexto;
 if(CFG.trabalhos)$('#chips').innerHTML=CFG.trabalhos.map(t=>`<span>${esc(t)}</span>`).join('');
@@ -275,7 +279,7 @@ mq($('#m1'),FRASES);mq($('#m2'),[...FRASES].reverse());
 // cards
 const build=(list,box,ar)=>{box.innerHTML=list.map((v,i)=>`
  <article class="card rv" data-i="${i}" data-ar="${ar}" style="--c1:${v.c[0]};--c2:${v.c[1]};transition-delay:${i*.08}s">
-  <div class="ph"></div>${v.src?`<video src="${v.src}" muted loop playsinline preload="metadata"></video>`:''}
+  <div class="ph"></div>${v.src?`<video src="${v.src}#t=0.1" muted loop playsinline preload="metadata"></video>`:''}
   <span class="num">0${i+1}</span><div class="play"></div>
   <div class="info"><span>${esc(v.tag)}</span><b>${esc(v.t)}</b></div></article>`).join('')};
 build(VERTICAIS,$('#vg'),'9/16');build(HORIZONTAIS,$('#hg'),'16/9');
@@ -303,6 +307,9 @@ document.querySelectorAll('.card').forEach(c=>{
   c.addEventListener('mouseleave',()=>{c.style.transform='';if(v){v.pause();v.currentTime=0}});
   c.addEventListener('click',()=>openLb(c));
 });
+
+// celular: sem hover, então toca sozinho o que está na tela
+if(matchMedia('(hover:none)').matches){const vo=new IntersectionObserver(es=>es.forEach(e=>{const v=e.target.querySelector('video');if(!v)return;if(e.isIntersecting&&e.intersectionRatio>=.6){v.play().catch(()=>{})}else{v.pause()}}),{threshold:[0,.6]});document.querySelectorAll('.card').forEach(c=>vo.observe(c))}
 
 // magnetic buttons
 document.querySelectorAll('.mag').forEach(b=>{
