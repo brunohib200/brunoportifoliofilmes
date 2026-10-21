@@ -1,0 +1,5 @@
+admin_password.txt
+.DS_Store
+__pycache__/
+videos/*
+!videos/.gitkeep

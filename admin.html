@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Painel · Portfólio</title>
+<link href="https://fonts.googleapis.com/css2?family=Anton&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0a0a0a;--card:#141414;--line:#2a2a2a;--fg:#f4f1ea;--mut:#8a8a85;--acc:#ff2b2b}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--fg);font-family:'Space Grotesk',sans-serif;padding:0 0 120px}
+h1,h2{font-family:'Anton';text-transform:uppercase;font-weight:400;letter-spacing:.02em}
+header{position:sticky;top:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:18px 4vw;background:rgba(10,10,10,.92);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+header h1{font-size:26px}header h1 b{color:var(--acc);font-weight:400}
+main{max-width:980px;margin:0 auto;padding:30px 4vw}
+.sec{background:var(--card);border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:22px}
+.sec h2{font-size:30px;margin-bottom:18px}.sec h2 i{font-style:normal;color:var(--acc)}
+label{display:block;font-size:12px;letter-spacing:.15em;text-transform:uppercase;color:var(--mut);margin:14px 0 6px}
+input,textarea{width:100%;background:#0d0d0d;border:1px solid var(--line);border-radius:10px;color:var(--fg);padding:12px 14px;font:inherit;outline:0;transition:border-color .2s}
+input:focus,textarea:focus{border-color:var(--acc)}
+input[type=color]{padding:2px;height:46px;width:90px}
+.row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.btn{background:var(--acc);color:#fff;border:0;border-radius:99px;padding:12px 22px;font:700 13px 'Space Grotesk';letter-spacing:.1em;text-transform:uppercase;cursor:pointer;transition:transform .15s,filter .2s}
+.btn:hover{transform:translateY(-2px);filter:brightness(1.15)}
+.btn.ghost{background:none;border:1px solid var(--line);color:var(--fg)}
+.btn.sm{padding:8px 14px;font-size:11px}
+.vid{border:1px solid var(--line);border-radius:14px;padding:16px;margin-top:14px;background:#101010;display:grid;grid-template-columns:1fr 1fr;gap:12px;position:relative}
+.vid .full{grid-column:1/-1}
+.vid label{margin:0 0 4px}
+.tools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.src{font-size:13px;color:var(--mut);word-break:break-all}
+.prog{height:4px;background:var(--line);border-radius:4px;overflow:hidden;display:none;margin-top:6px}
+.prog i{display:block;height:100%;width:0;background:var(--acc);transition:width .2s}
+.hint{color:var(--mut);font-size:13px;margin-top:8px}
+#login{position:fixed;inset:0;background:var(--bg);z-index:20;display:grid;place-items:center}
+#login form{width:min(360px,90vw);text-align:center}
+#login h1{font-size:48px;margin-bottom:20px}
+#login input{margin-bottom:14px;text-align:center}
+.bar{position:fixed;left:0;right:0;bottom:0;background:rgba(10,10,10,.95);border-top:1px solid var(--line);padding:16px 4vw;display:flex;justify-content:space-between;align-items:center;gap:14px;z-index:6}
+#msg{font-size:14px;color:var(--mut)}#msg.ok{color:#6ee77a}#msg.err{color:var(--acc)}
+@media(max-width:700px){.row,.vid{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+<div id="login"><form id="lf"><h1>Painel<b style="color:var(--acc)">.</b></h1><input id="pw" type="password" placeholder="Senha" autofocus><button class="btn" style="width:100%">Entrar</button><p class="hint" id="lerr"></p></form></div>
+
+<header><h1>Painel<b>.</b>Admin</h1><a class="btn ghost sm" href="index.html" target="_blank" style="text-decoration:none;color:var(--fg)">Ver site ↗</a></header>
+<main>
+  <div class="sec"><h2>Sobre <i>você</i></h2>
+    <div class="row"><div><label>Nome</label><input id="nome"></div><div><label>Idade</label><input id="idade" type="number"></div></div>
+    <label>Tipos de trabalho (um por linha)</label><textarea id="trabalhos" rows="5"></textarea>
+    <div class="row"><div><label>Nº de vídeos (contador)</label><input id="statVideos" type="number"></div><div><label>Nº de clientes (contador)</label><input id="statClientes" type="number"></div></div>
+  </div>
+  <div class="sec"><h2>Visual <i>&amp; início</i></h2>
+    <label>Cor principal</label><input id="cor" type="color">
+    <label>Título do início (3 linhas, uma por linha)</label><textarea id="heroLinhas" rows="3"></textarea>
+    <label>Texto abaixo do título</label><textarea id="heroTexto" rows="2"></textarea>
+    <label>Vídeo de fundo do início (opcional)</label>
+    <div class="tools"><input id="heroVideo" placeholder="videos/showreel.mp4" style="flex:1"><button class="btn sm" data-up="heroVideo">Enviar vídeo</button><button class="btn ghost sm" id="clrhero">Remover</button></div>
+    <div class="prog" id="p-heroVideo"><i></i></div>
+    <label>Palavras da faixa que corre (uma por linha)</label><textarea id="frases" rows="5"></textarea>
+  </div>
+  <div class="sec"><h2>Vídeos <i>verticais</i></h2><div id="lv"></div><br><button class="btn" data-add="verticais">+ Adicionar vertical</button><p class="hint">Formato 9:16 (Reels, Shorts, TikTok).</p></div>
+  <div class="sec"><h2>Vídeos <i>horizontais</i></h2><div id="lh"></div><br><button class="btn" data-add="horizontais">+ Adicionar horizontal</button><p class="hint">Formato 16:9 (YouTube, institucional). O primeiro aparece em destaque, em largura total.</p></div>
+  <div class="sec"><h2>Con<i>tato</i></h2>
+    <label>Link do WhatsApp</label><input id="whatsapp" placeholder="https://wa.me/5511999999999">
+    <label>Link do Instagram</label><input id="instagram" placeholder="https://instagram.com/seuusuario">
+    <label>E-mail</label><input id="email">
+  </div>
+</main>
+<div class="bar"><span id="msg">Alterações ainda não salvas aparecem no site só depois de salvar.</span><button class="btn" id="save">Salvar no site</button></div>
+
+<script>
+const $=s=>document.querySelector(s);
+let PASS=sessionStorage.getItem('pw')||'',CFG={};
+const H=()=>({'X-Pass':PASS});
+const msg=(t,c)=>{const m=$('#msg');m.textContent=t;m.className=c||''};
+const palettes=[["#ff2b2b","#3a0000"],["#8f0000","#1a0000"],["#ff7a66","#4a0a00"],["#d10000","#200000"],["#ff5a4a","#2a0000"],["#6e0000","#ff2b2b"]];
+
+async function boot(){
+  const ok=PASS&&(await fetch('api.php?a=check',{headers:H()})).ok;
+  if(!ok){$('#login').style.display='grid';return}
+  $('#login').style.display='none';
+  CFG=await (await fetch('config.json?'+Date.now())).json();fill();
+}
+$('#lf').onsubmit=async e=>{e.preventDefault();PASS=$('#pw').value;
+  if((await fetch('api.php?a=check',{headers:H()})).ok){sessionStorage.setItem('pw',PASS);boot()}else $('#lerr').textContent='Senha incorreta.'};
+
+const lines=t=>t.split('\n').map(x=>x.trim()).filter(Boolean);
+function fill(){
+  for(const k of ['nome','idade','cor','heroTexto','heroVideo','whatsapp','instagram','email','statVideos','statClientes'])$('#'+k).value=CFG[k]??'';
+  $('#trabalhos').value=(CFG.trabalhos||[]).join('\n');$('#frases').value=(CFG.frases||[]).join('\n');$('#heroLinhas').value=(CFG.heroLinhas||[]).join('\n');
+  draw('verticais','#lv');draw('horizontais','#lh');
+}
+function draw(key,sel){
+  const box=$(sel);box.innerHTML='';
+  CFG[key].forEach((v,i)=>{
+    const d=document.createElement('div');d.className='vid';
+    d.innerHTML=`<div><label>Título</label><input data-f="t" value="${(v.t||'').replace(/"/g,'&quot;')}"></div>
+    <div><label>Categoria</label><input data-f="tag" value="${(v.tag||'').replace(/"/g,'&quot;')}"></div>
+    <div class="full"><label>Vídeo</label><div class="src">${v.src?v.src:'Nenhum vídeo enviado (aparece um fundo colorido).'}</div><div class="prog"><i></i></div></div>
+    <div class="full tools"><button class="btn sm" data-a="up">${v.src?'Trocar vídeo':'Enviar vídeo'}</button>
+      <button class="btn ghost sm" data-a="l">↑</button><button class="btn ghost sm" data-a="r">↓</button><button class="btn ghost sm" data-a="del" style="margin-left:auto">Excluir</button></div>`;
+    d.querySelectorAll('input').forEach(inp=>inp.oninput=()=>v[inp.dataset.f]=inp.value);
+    d.querySelector('[data-a=up]').onclick=()=>pick(async f=>{v.src=await upload(f,d.querySelector('.prog'));draw(key,sel);msg('Vídeo enviado. Clique em Salvar.','ok')});
+    d.querySelector('[data-a=l]').onclick=()=>{if(i>0){[CFG[key][i-1],CFG[key][i]]=[CFG[key][i],CFG[key][i-1]];draw(key,sel)}};
+    d.querySelector('[data-a=r]').onclick=()=>{if(i<CFG[key].length-1){[CFG[key][i+1],CFG[key][i]]=[CFG[key][i],CFG[key][i+1]];draw(key,sel)}};
+    d.querySelector('[data-a=del]').onclick=()=>{if(confirm('Excluir este item?')){CFG[key].splice(i,1);draw(key,sel)}};
+    box.appendChild(d);
+  });
+}
+document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{const k=b.dataset.add;
+  CFG[k].push({t:'Novo vídeo',tag:'Categoria',src:'',c:palettes[CFG[k].length%palettes.length]});draw(k,k=='verticais'?'#lv':'#lh')});
+
+function pick(cb){const i=document.createElement('input');i.type='file';i.accept='video/*';i.onchange=()=>i.files[0]&&cb(i.files[0]).catch(e=>msg(e.message,'err'));i.click()}
+function upload(file,pr){return new Promise((ok,no)=>{
+  const x=new XMLHttpRequest();x.open('POST','api.php?a=upload&name='+encodeURIComponent(file.name));x.setRequestHeader('X-Pass',PASS);
+  pr.style.display='block';const bar=pr.firstElementChild;
+  x.upload.onprogress=e=>{bar.style.width=(e.loaded/e.total*100)+'%';msg('Enviando… '+Math.round(e.loaded/e.total*100)+'%')};
+  x.onload=()=>{try{const r=JSON.parse(x.responseText);x.status==200?ok(r.src):no(new Error(r.error))}catch(e){no(e)}};
+  x.onerror=()=>no(new Error('Falha no envio. O servidor está rodando?'));x.send(file)})}
+document.querySelector('[data-up=heroVideo]').onclick=()=>pick(async f=>{$('#heroVideo').value=await upload(f,$('#p-heroVideo'));msg('Vídeo enviado. Clique em Salvar.','ok')});
+$('#clrhero').onclick=()=>$('#heroVideo').value='';
+
+$('#save').onclick=async()=>{
+  for(const k of ['nome','cor','heroTexto','heroVideo','whatsapp','instagram','email'])CFG[k]=$('#'+k).value.trim();
+  for(const k of ['idade','statVideos','statClientes'])CFG[k]=+$('#'+k).value||0;
+  CFG.trabalhos=lines($('#trabalhos').value);CFG.frases=lines($('#frases').value);CFG.heroLinhas=lines($('#heroLinhas').value);
+  const r=await fetch('api.php?a=config',{method:'POST',headers:H(),body:JSON.stringify(CFG)});
+  r.ok?msg('Salvo! Atualize o site para ver as mudanças.','ok'):msg('Erro ao salvar.','err')};
+boot();
+</script>
+</body>
+</html>

@@ -1,0 +1,103 @@
+{
+  "nome": "Seu Nome",
+  "idade": 0,
+  "cor": "#ff2b2b",
+  "heroLinhas": [
+    "Eu dou",
+    "ritmo",
+    "ao seu vídeo"
+  ],
+  "heroTexto": "Cortes, cor, som e movimento. Transformo imagem bruta em vídeo que prende até o último segundo.",
+  "heroVideo": "",
+  "frases": [
+    "Cortes",
+    "Color",
+    "Motion",
+    "Sound Design",
+    "Legendas",
+    "Ritmo",
+    "Storytelling",
+    "Reels",
+    "YouTube"
+  ],
+  "trabalhos": [
+    "Reels & Shorts",
+    "YouTube",
+    "Motion",
+    "Color grading",
+    "Anúncios",
+    "Podcasts"
+  ],
+  "statVideos": 120,
+  "statClientes": 50,
+  "whatsapp": "https://wa.me/5500000000000",
+  "instagram": "https://instagram.com/seuusuario",
+  "email": "seu@email.com",
+  "verticais": [
+    {
+      "t": "Reel Moda",
+      "tag": "Reels",
+      "src": "",
+      "c": [
+        "#ff2b2b",
+        "#3a0000"
+      ]
+    },
+    {
+      "t": "Short Tech",
+      "tag": "Shorts",
+      "src": "",
+      "c": [
+        "#8f0000",
+        "#1a0000"
+      ]
+    },
+    {
+      "t": "Podcast Cut",
+      "tag": "Corte",
+      "src": "",
+      "c": [
+        "#ff7a66",
+        "#4a0a00"
+      ]
+    },
+    {
+      "t": "Anúncio",
+      "tag": "Ads",
+      "src": "",
+      "c": [
+        "#d10000",
+        "#200000"
+      ]
+    }
+  ],
+  "horizontais": [
+    {
+      "t": "Vídeo YouTube",
+      "tag": "YouTube",
+      "src": "",
+      "c": [
+        "#ff2b2b",
+        "#1a1a1a"
+      ]
+    },
+    {
+      "t": "Institucional",
+      "tag": "Corporativo",
+      "src": "",
+      "c": [
+        "#ff5a4a",
+        "#2a0000"
+      ]
+    },
+    {
+      "t": "Videoclipe",
+      "tag": "Clipe",
+      "src": "",
+      "c": [
+        "#6e0000",
+        "#ff2b2b"
+      ]
+    }
+  ]
+}
