@@ -48,6 +48,8 @@ input[type=color]{padding:2px;height:46px;width:90px}
 <main>
   <div class="sec"><h2>Sobre <i>você</i></h2>
     <div class="row"><div><label>Nome</label><input id="nome"></div><div><label>Idade</label><input id="idade" type="number"></div></div>
+    <label>Sua foto (aparece na bolinha da apresentação)</label>
+    <div class="tools"><img id="fotoPrev" alt="" style="width:64px;height:64px;border-radius:50%;object-fit:cover;background:#222;display:none"><button class="btn sm" id="fotoBtn" type="button">Escolher foto</button><button class="btn ghost sm" id="fotoDel" type="button">Remover</button></div>
     <label>Tipos de trabalho (um por linha)</label><textarea id="trabalhos" rows="5"></textarea>
     <div class="row"><div><label>Nº de vídeos (contador)</label><input id="statVideos" type="number"></div><div><label>Nº de clientes (contador)</label><input id="statClientes" type="number"></div></div>
   </div>
@@ -86,8 +88,11 @@ async function boot(){
 $('#lf').onsubmit=async e=>{e.preventDefault();PASS=$('#pw').value;
   const rc=await fetch('/api/check',{headers:H()});if(rc.ok){sessionStorage.setItem('pw',PASS);boot()}else{let m='Senha incorreta.';try{const j=await rc.json();if(j.error)m=j.error}catch(e){}$('#lerr').textContent=m}};
 
+const showFoto=()=>{const p=$('#fotoPrev');p.style.display=CFG.foto?'block':'none';if(CFG.foto)p.src=CFG.foto};
+$('#fotoBtn').onclick=()=>{const i=document.createElement('input');i.type='file';i.accept='image/*';i.onchange=()=>{const f=i.files[0];if(!f)return;const img=new Image();img.onload=()=>{const s=Math.min(img.width,img.height),c=document.createElement('canvas');c.width=c.height=480;c.getContext('2d').drawImage(img,(img.width-s)/2,(img.height-s)/2,s,s,0,0,480,480);CFG.foto=c.toDataURL('image/jpeg',.85);showFoto();msg('Foto pronta. Clique em Salvar no site.','ok')};img.src=URL.createObjectURL(f)};i.click()};
+$('#fotoDel').onclick=()=>{CFG.foto='';showFoto()};
 const lines=t=>t.split('\n').map(x=>x.trim()).filter(Boolean);
-function fill(){
+function fill(){showFoto();
   for(const k of ['nome','idade','cor','heroTexto','heroVideo','whatsapp','instagram','email','statVideos','statClientes'])$('#'+k).value=CFG[k]??'';
   $('#trabalhos').value=(CFG.trabalhos||[]).join('\n');$('#frases').value=(CFG.frases||[]).join('\n');$('#heroLinhas').value=(CFG.heroLinhas||[]).join('\n');
   draw('verticais','#lv');draw('horizontais','#lh');
