@@ -1,6 +1,6 @@
 {
-  "nome": "Seu Nome",
-  "idade": 0,
+  "nome": "Bruno Barros",
+  "idade": 22,
   "cor": "#ff2b2b",
   "heroLinhas": [
     "Eu dou",
@@ -28,15 +28,15 @@
     "Anúncios",
     "Podcasts"
   ],
-  "statVideos": 120,
-  "statClientes": 50,
-  "whatsapp": "https://wa.me/5500000000000",
-  "instagram": "https://instagram.com/seuusuario",
-  "email": "seu@email.com",
+  "statVideos": 9,
+  "statClientes": 5,
+  "whatsapp": "https://wa.me/5544998228917",
+  "instagram": "https://instagram.com/bruno_iignacio",
+  "email": "bruno24092018@gmail.com",
   "verticais": [
     {
-      "t": "Reel Moda",
-      "tag": "Reels",
+      "t": "Dicolli 30 Anos",
+      "tag": "Institucional",
       "src": "",
       "c": [
         "#ff2b2b",
@@ -44,37 +44,19 @@
       ]
     },
     {
-      "t": "Short Tech",
-      "tag": "Shorts",
+      "t": "Corrida Paraná",
+      "tag": "Evento",
       "src": "",
       "c": [
         "#8f0000",
         "#1a0000"
       ]
-    },
-    {
-      "t": "Podcast Cut",
-      "tag": "Corte",
-      "src": "",
-      "c": [
-        "#ff7a66",
-        "#4a0a00"
-      ]
-    },
-    {
-      "t": "Anúncio",
-      "tag": "Ads",
-      "src": "",
-      "c": [
-        "#d10000",
-        "#200000"
-      ]
     }
   ],
   "horizontais": [
     {
-      "t": "Vídeo YouTube",
-      "tag": "YouTube",
+      "t": "Delta One · Explicativo",
+      "tag": "Comercial",
       "src": "",
       "c": [
         "#ff2b2b",
@@ -82,8 +64,17 @@
       ]
     },
     {
-      "t": "Institucional",
-      "tag": "Corporativo",
+      "t": "Sanspray · Dispositivos",
+      "tag": "Institucional",
+      "src": "",
+      "c": [
+        "#d10000",
+        "#200000"
+      ]
+    },
+    {
+      "t": "Sanspray · Por trás do painel",
+      "tag": "Institucional",
       "src": "",
       "c": [
         "#ff5a4a",
@@ -91,12 +82,39 @@
       ]
     },
     {
-      "t": "Videoclipe",
-      "tag": "Clipe",
+      "t": "Sanspray · Você sabe o que faz?",
+      "tag": "Educativo",
       "src": "",
       "c": [
         "#6e0000",
         "#ff2b2b"
+      ]
+    },
+    {
+      "t": "Paraná Supermercados",
+      "tag": "Appetite appeal",
+      "src": "",
+      "c": [
+        "#ff7a66",
+        "#4a0a00"
+      ]
+    },
+    {
+      "t": "Pistachi Croc",
+      "tag": "Produto",
+      "src": "",
+      "c": [
+        "#8f0000",
+        "#1a0000"
+      ]
+    },
+    {
+      "t": "Oferta Secreta",
+      "tag": "Motion 3D",
+      "src": "",
+      "c": [
+        "#ff2b2b",
+        "#3a0000"
       ]
     }
   ]
