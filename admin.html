@@ -72,19 +72,19 @@ input[type=color]{padding:2px;height:46px;width:90px}
 
 <script>
 const $=s=>document.querySelector(s);
-let PASS=sessionStorage.getItem('pw')||'',CFG={};
+let PASS=sessionStorage.getItem('pw')||'',CFG={},MODE='raw';
 const H=()=>({'X-Pass':PASS});
 const msg=(t,c)=>{const m=$('#msg');m.textContent=t;m.className=c||''};
 const palettes=[["#ff2b2b","#3a0000"],["#8f0000","#1a0000"],["#ff7a66","#4a0a00"],["#d10000","#200000"],["#ff5a4a","#2a0000"],["#6e0000","#ff2b2b"]];
 
 async function boot(){
-  const ok=PASS&&(await fetch('api.php?a=check',{headers:H()})).ok;
+  const rc=PASS?await fetch('/api/check',{headers:H()}):null;const ok=rc&&rc.ok;if(ok)MODE=(await rc.json()).blob?'blob':'raw';
   if(!ok){$('#login').style.display='grid';return}
   $('#login').style.display='none';
-  CFG=await (await fetch('config.json?'+Date.now())).json();fill();
+  try{const rr=await fetch('/api/config',{cache:'no-store'});if(!rr.ok)throw 0;CFG=await rr.json()}catch(e){CFG=await (await fetch('config.json?'+Date.now())).json()}fill();
 }
 $('#lf').onsubmit=async e=>{e.preventDefault();PASS=$('#pw').value;
-  if((await fetch('api.php?a=check',{headers:H()})).ok){sessionStorage.setItem('pw',PASS);boot()}else $('#lerr').textContent='Senha incorreta.'};
+  const rc=await fetch('/api/check',{headers:H()});if(rc.ok){sessionStorage.setItem('pw',PASS);boot()}else{let m='Senha incorreta.';try{const j=await rc.json();if(j.error)m=j.error}catch(e){}$('#lerr').textContent=m}};
 
 const lines=t=>t.split('\n').map(x=>x.trim()).filter(Boolean);
 function fill(){
@@ -113,12 +113,19 @@ document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{const k=b.data
   CFG[k].push({t:'Novo vídeo',tag:'Categoria',src:'',c:palettes[CFG[k].length%palettes.length]});draw(k,k=='verticais'?'#lv':'#lh')});
 
 function pick(cb){const i=document.createElement('input');i.type='file';i.accept='video/*';i.onchange=()=>i.files[0]&&cb(i.files[0]).catch(e=>msg(e.message,'err'));i.click()}
-function upload(file,pr){return new Promise((ok,no)=>{
-  const x=new XMLHttpRequest();x.open('POST','api.php?a=upload&name='+encodeURIComponent(file.name));x.setRequestHeader('X-Pass',PASS);
+async function upload(file,pr){
   pr.style.display='block';const bar=pr.firstElementChild;
-  x.upload.onprogress=e=>{bar.style.width=(e.loaded/e.total*100)+'%';msg('Enviando… '+Math.round(e.loaded/e.total*100)+'%')};
-  x.onload=()=>{try{const r=JSON.parse(x.responseText);x.status==200?ok(r.src):no(new Error(r.error))}catch(e){no(e)}};
-  x.onerror=()=>no(new Error('Falha no envio. O servidor está rodando?'));x.send(file)})}
+  if(MODE==='blob'){
+    const {upload:up}=await import('https://esm.sh/@vercel/blob@2/client');
+    const safe=file.name.replace(/[^A-Za-z0-9._-]/g,'_');
+    const b=await up('videos/'+safe,file,{access:'public',handleUploadUrl:'/api/upload',clientPayload:PASS,multipart:file.size>20e6,
+      onUploadProgress:e=>{bar.style.width=e.percentage+'%';msg('Enviando… '+Math.round(e.percentage)+'%')}});
+    return b.url}
+  return new Promise((ok,no)=>{
+    const x=new XMLHttpRequest();x.open('POST','/api/upload?name='+encodeURIComponent(file.name));x.setRequestHeader('X-Pass',PASS);
+    x.upload.onprogress=e=>{bar.style.width=(e.loaded/e.total*100)+'%';msg('Enviando… '+Math.round(e.loaded/e.total*100)+'%')};
+    x.onload=()=>{try{const r=JSON.parse(x.responseText);x.status==200?ok(r.src):no(new Error(r.error))}catch(e){no(e)}};
+    x.onerror=()=>no(new Error('Falha no envio. O servidor está rodando?'));x.send(file)})}
 document.querySelector('[data-up=heroVideo]').onclick=()=>pick(async f=>{$('#heroVideo').value=await upload(f,$('#p-heroVideo'));msg('Vídeo enviado. Clique em Salvar.','ok')});
 $('#clrhero').onclick=()=>$('#heroVideo').value='';
 
@@ -126,7 +133,7 @@ $('#save').onclick=async()=>{
   for(const k of ['nome','cor','heroTexto','heroVideo','whatsapp','instagram','email'])CFG[k]=$('#'+k).value.trim();
   for(const k of ['idade','statVideos','statClientes'])CFG[k]=+$('#'+k).value||0;
   CFG.trabalhos=lines($('#trabalhos').value);CFG.frases=lines($('#frases').value);CFG.heroLinhas=lines($('#heroLinhas').value);
-  const r=await fetch('api.php?a=config',{method:'POST',headers:H(),body:JSON.stringify(CFG)});
+  const r=await fetch('/api/config',{method:'POST',headers:H(),body:JSON.stringify(CFG)});
   r.ok?msg('Salvo! Atualize o site para ver as mudanças.','ok'):msg('Erro ao salvar.','err')};
 boot();
 </script>

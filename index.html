@@ -246,7 +246,7 @@ footer{display:flex;justify-content:space-between;padding:60px 4vw 30px;color:va
 <script type="module">
 /* Tudo é editado pelo painel (admin.html), que salva em config.json. */
 let CFG={};
-try{CFG=await (await fetch('config.json?'+Date.now())).json()}catch(e){}
+try{const r=await fetch('/api/config',{cache:'no-store'});if(!r.ok)throw 0;CFG=await r.json()}catch(e){try{CFG=await (await fetch('config.json?'+Date.now())).json()}catch(e2){}}
 const HERO_VIDEO=CFG.heroVideo||"";
 const VERTICAIS=CFG.verticais||[];
 const HORIZONTAIS=CFG.horizontais||[];
