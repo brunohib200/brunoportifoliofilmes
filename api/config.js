@@ -16,15 +16,22 @@ export default async function handler(req, res) {
 
   if (req.method === 'POST') {
     if (!senhaOk(req.headers['x-pass'])) return res.status(401).json({ error: 'senha incorreta' });
-    const data = req.body;
+    let data = req.body;
+    if (typeof data === 'string') {
+      try { data = JSON.parse(data); } catch (e) { data = null; }
+    }
     if (!data || typeof data !== 'object') return res.status(400).json({ error: 'json inválido' });
-    await put(PATH, JSON.stringify(data), {
-      access: 'public',
-      contentType: 'application/json',
-      addRandomSuffix: false,
-      allowOverwrite: true,
-      cacheControlMaxAge: 60,
-    });
+    try {
+      await put(PATH, JSON.stringify(data), {
+        access: 'public',
+        contentType: 'application/json',
+        addRandomSuffix: false,
+        allowOverwrite: true,
+        cacheControlMaxAge: 60,
+      });
+    } catch (e) {
+      return res.status(500).json({ error: 'falha ao gravar: ' + e.message });
+    }
     return res.status(200).json({ ok: true });
   }
 
