@@ -28,32 +28,12 @@
     "Anúncios",
     "Podcasts"
   ],
-  "statVideos": 9,
-  "statClientes": 5,
+  "statVideos": 150,
+  "statClientes": 20,
   "whatsapp": "https://wa.me/5544998228917",
   "instagram": "https://instagram.com/bruno_iignacio",
   "email": "bruno24092018@gmail.com",
   "verticais": [
-    {
-      "t": "Dicolli 30 Anos",
-      "tag": "Institucional",
-      "src": "",
-      "c": [
-        "#ff2b2b",
-        "#3a0000"
-      ]
-    },
-    {
-      "t": "Corrida Paraná",
-      "tag": "Evento",
-      "src": "",
-      "c": [
-        "#8f0000",
-        "#1a0000"
-      ]
-    }
-  ],
-  "horizontais": [
     {
       "t": "Delta One · Explicativo",
       "tag": "Comercial",
@@ -115,6 +95,26 @@
       "c": [
         "#ff2b2b",
         "#3a0000"
+      ]
+    }
+  ],
+  "horizontais": [
+    {
+      "t": "Dicolli 30 Anos",
+      "tag": "Institucional",
+      "src": "",
+      "c": [
+        "#ff2b2b",
+        "#3a0000"
+      ]
+    },
+    {
+      "t": "Corrida Paraná",
+      "tag": "Evento",
+      "src": "",
+      "c": [
+        "#8f0000",
+        "#1a0000"
       ]
     }
   ]
