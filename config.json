@@ -28,77 +28,12 @@
     "Anúncios",
     "Podcasts"
   ],
-  "statVideos": 150,
-  "statClientes": 20,
+  "statVideos": 9,
+  "statClientes": 5,
   "whatsapp": "https://wa.me/5544998228917",
   "instagram": "https://instagram.com/bruno_iignacio",
   "email": "bruno24092018@gmail.com",
   "verticais": [
-    {
-      "t": "Delta One · Explicativo",
-      "tag": "Comercial",
-      "src": "",
-      "c": [
-        "#ff2b2b",
-        "#1a1a1a"
-      ]
-    },
-    {
-      "t": "Sanspray · Dispositivos",
-      "tag": "Institucional",
-      "src": "",
-      "c": [
-        "#d10000",
-        "#200000"
-      ]
-    },
-    {
-      "t": "Sanspray · Por trás do painel",
-      "tag": "Institucional",
-      "src": "",
-      "c": [
-        "#ff5a4a",
-        "#2a0000"
-      ]
-    },
-    {
-      "t": "Sanspray · Você sabe o que faz?",
-      "tag": "Educativo",
-      "src": "",
-      "c": [
-        "#6e0000",
-        "#ff2b2b"
-      ]
-    },
-    {
-      "t": "Paraná Supermercados",
-      "tag": "Appetite appeal",
-      "src": "",
-      "c": [
-        "#ff7a66",
-        "#4a0a00"
-      ]
-    },
-    {
-      "t": "Pistachi Croc",
-      "tag": "Produto",
-      "src": "",
-      "c": [
-        "#8f0000",
-        "#1a0000"
-      ]
-    },
-    {
-      "t": "Oferta Secreta",
-      "tag": "Motion 3D",
-      "src": "",
-      "c": [
-        "#ff2b2b",
-        "#3a0000"
-      ]
-    }
-  ],
-  "horizontais": [
     {
       "t": "Dicolli 30 Anos",
       "tag": "Institucional",
@@ -106,7 +41,9 @@
       "c": [
         "#ff2b2b",
         "#3a0000"
-      ]
+      ],
+      "preview": "previews/dicolli-30-anos-60s.mp4",
+      "yt": ""
     },
     {
       "t": "Corrida Paraná",
@@ -115,7 +52,88 @@
       "c": [
         "#8f0000",
         "#1a0000"
-      ]
+      ],
+      "preview": "previews/corrida-parana.mp4",
+      "yt": ""
+    }
+  ],
+  "horizontais": [
+    {
+      "t": "Delta One · Explicativo",
+      "tag": "Comercial",
+      "src": "",
+      "c": [
+        "#ff2b2b",
+        "#1a1a1a"
+      ],
+      "preview": "previews/delta-one-explicativo.mp4",
+      "yt": ""
+    },
+    {
+      "t": "Sanspray · Dispositivos",
+      "tag": "Institucional",
+      "src": "",
+      "c": [
+        "#d10000",
+        "#200000"
+      ],
+      "preview": "previews/sanspray-dispositivos.mp4",
+      "yt": ""
+    },
+    {
+      "t": "Sanspray · Por trás do painel",
+      "tag": "Institucional",
+      "src": "",
+      "c": [
+        "#ff5a4a",
+        "#2a0000"
+      ],
+      "preview": "previews/sanspray-painel.mp4",
+      "yt": ""
+    },
+    {
+      "t": "Sanspray · Você sabe o que faz?",
+      "tag": "Educativo",
+      "src": "",
+      "c": [
+        "#6e0000",
+        "#ff2b2b"
+      ],
+      "preview": "previews/sanspray-voce-sabe.mp4",
+      "yt": ""
+    },
+    {
+      "t": "Paraná Supermercados",
+      "tag": "Appetite appeal",
+      "src": "",
+      "c": [
+        "#ff7a66",
+        "#4a0a00"
+      ],
+      "preview": "previews/parana-supermercados.mp4",
+      "yt": ""
+    },
+    {
+      "t": "Pistachi Croc",
+      "tag": "Produto",
+      "src": "",
+      "c": [
+        "#8f0000",
+        "#1a0000"
+      ],
+      "preview": "previews/pistachi-croc.mp4",
+      "yt": ""
+    },
+    {
+      "t": "Oferta Secreta",
+      "tag": "Motion 3D",
+      "src": "",
+      "c": [
+        "#ff2b2b",
+        "#3a0000"
+      ],
+      "preview": "previews/oferta-secreta.mp4",
+      "yt": ""
     }
   ]
 }
